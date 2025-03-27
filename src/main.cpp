@@ -18,10 +18,7 @@ PubSubClient mqttClient(client);
 
 const char *ledTopic = "ESP32_SENSOR/lightSensor";
 
-byte lightSensor = 34;
 byte led = 2;
-
-
 
 /*------------------------------FUNCTIONS------------------------------*/
 
@@ -66,11 +63,18 @@ bool connectToBroker(){
 
 void messageReceived(const char* topic, byte* message, unsigned int length){
   //Do something if receives any message
-  
-
+  String status;
+  for (int i = 0; i<length;i++){
+    char c = (char)message[i];
+    status += c;
+  }
+  if(status == "Acender"){
+    digitalWrite(led,HIGH);
+  }
+  else if(status == "Apagar"){
+    digitalWrite(led,LOW);
+  }
 }
-
-
 
 /*---------------------------------MAIN LOOPS--------------------------------------*/
 
@@ -83,7 +87,6 @@ void setup()
   connectToWifi();
   connectToBroker();
 
-  pinMode(lightSensor,INPUT);
   pinMode(led,OUTPUT);
 }
 
@@ -98,13 +101,5 @@ void loop()
   }
 
   mqttClient.loop();
-  // byte lightSensorValue = map(analogRead(lightSensor),0,4095,0,100);
-  // Serial.println(lightSensorValue);
-  
-  // if(WiFi.isConnected() && mqttClient.connected()){
-  //   if(lightSensorValue < 80){
-  //     mqttClient.publish(ledTopic,String(lightSensorValue).c_str());
-  //   }
-  // }
   delay(1000);
 }
