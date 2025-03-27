@@ -16,7 +16,7 @@ void messageReceived(const char* topic, byte* message, unsigned int length);
 WiFiClientSecure client;
 PubSubClient mqttClient(client);
 
-const char *lightTopic = "ESP32_SENSOR/lightSensor";
+const char *ledTopic = "ESP32_SENSOR/ledControl";
 
 byte led = 2;
 
@@ -54,7 +54,7 @@ bool connectToBroker(){
       Serial.println("Connected to broker");
       mqttClient.setCallback(messageReceived);
 
-      mqttClient.subscribe(lightTopic);
+      mqttClient.subscribe(ledTopic);
     }
     delay(1000);
   }
@@ -68,6 +68,7 @@ void messageReceived(const char* topic, byte* message, unsigned int length){
     char c = (char)message[i];
     status += c;
   }
+  Serial.println(status);
   if(status == "Acender"){
     digitalWrite(led,HIGH);
   }
