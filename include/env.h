@@ -2,8 +2,8 @@ const char *WIFI_SSID = "iPhone";
 const char *WIFI_PASS = "teste123";
 
 const char *BROKER = "9ba2cb32944a4266a47c6f2a46d1bd26.s1.eu.hivemq.cloud";
-const char *MQTT_USERNAME = "hivemq.webclient.1743100343938";
-const char *MQTT_PASS = "XAy5Gn2<lgt06EFD:%*d";
+const char *MQTT_USERNAME = "GenericReceiver";
+const char *MQTT_PASS = "GenericReceiver1";
 
 #ifndef WIFI_CONNECTION
 #define WIFI_CONNECTION
