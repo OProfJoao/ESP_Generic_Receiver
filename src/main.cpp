@@ -44,7 +44,7 @@ bool connectToBroker() {
   mqttClient.setServer(BROKER, 8883);
 
   while (!mqttClient.connected() && tentativas < 10) {
-    if (mqttClient.connect("ESP32_SENSOR", MQTT_USERNAME, MQTT_PASS)) {
+    if (mqttClient.connect(MQTT_BOARD_ID, MQTT_USERNAME, MQTT_PASS)) {
       Serial.println("Connected to broker!");
       mqttClient.setCallback(messageReceived);
       mqttClient.subscribe(ledTopic); // Assina o tópico correto
@@ -100,5 +100,5 @@ void loop() {
   }
 
   mqttClient.loop();
-  delay(1000);
+  delay(100);
 }
